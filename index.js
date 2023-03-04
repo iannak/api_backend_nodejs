@@ -1,9 +1,9 @@
 const express = require('express')
 
 const app = express()
-
-app.listen('3000', () => {
-  console.log('Server is running on port 3000')
+const port = 3000
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
 })
 
 // middleware é a ponte entre as requisições
@@ -18,3 +18,32 @@ app.route('/').get((req, res) => {
 app.route('/').post((req, res) => {
   res.send(req.body)
 })
+
+// routes params in request
+app.route('/api/users').get((req, res) => {
+  res.send(req.params)
+  console.log(req.params)
+  console.log(req.query)
+})
+
+app.route('/api/:post_id/likes').get((req, res) => {
+  const {
+    post_id
+  } = req.params;
+  res.send(post_id);
+  console.log(post_id);
+})
+
+app.route('/api/:post_id/likes').post((req, res) => {
+  const {
+    nome,
+    cidade,
+    endereco,
+    email,
+    telefone
+  } = req.body;
+  res.send(nome, cidade, endereco, email, telefone);
+})
+
+app.route('/:variavel').get((req, res) => res.send(req.params.variavel))
+app.route('/identidade/:nome').post((req, res) => res.send(req.params.nome))
