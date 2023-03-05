@@ -19,7 +19,7 @@ app.route('/').post((req, res) => {
   res.send(req.body)
 })
 
-// routes params in request
+// routes params in request body
 app.route('/api/users').get((req, res) => {
   res.send(req.params)
   console.log(req.params)
@@ -47,3 +47,12 @@ app.route('/api/:post_id/likes').post((req, res) => {
 
 app.route('/:variavel').get((req, res) => res.send(req.params.variavel))
 app.route('/identidade/:nome').post((req, res) => res.send(req.params.nome))
+
+// routes params in request 2
+app.route('/').get((req, res) => res.send('Hello World'))
+app.route('/:nome').get((req, res) => res.send(req.params.nome))
+
+// routes params in request query
+// os querys sao indentificados por ?nome=valor
+app.route('/').get((req, res) => res.send(req.query))
+app.route('/about/user').get((req, res) => res.send(req.query))
