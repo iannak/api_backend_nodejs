@@ -7,16 +7,20 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
+let author = "Anna Karolina"
+
 // middleware é a ponte entre as requisições
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // GET
-app.route('/').get((req, res) => {
-  res.send('Hello World')
+app.route('/get').get((req, res) => {
+  res.send(author)
+  console.log(author)
 })
 
 // POST
-app.route('/').post((req, res) => {
+app.route('/post').post((req, res) => {
   res.send(req.body)
 })
 
@@ -67,4 +71,16 @@ app.route('/api/github').get((req, res) => {
   .catch(error => {
     console.log(error)
   })
+
+// PUT
+app.route('/put').put((req, res) => {
+  author = req.body.author
+  res.send(author)
+})
+
+// DELETE
+app.route('/delete').delete((req, res) => {
+  author = req.body.author
+  res.send(author)
+  console.log("Deleted")
 })
