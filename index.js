@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios')
 
 const app = express()
 const port = 3000
@@ -56,3 +57,14 @@ app.route('/:nome').get((req, res) => res.send(req.params.nome))
 // os querys sao indentificados por ?nome=valor
 app.route('/').get((req, res) => res.send(req.query))
 app.route('/about/user').get((req, res) => res.send(req.query))
+
+// api github routes
+app.route('/api/github').get((req, res) => {
+  axios.get('https://api.github.com/users/franzannakarolina')
+  .then(response => {
+    res.send(response.data)
+  })
+  .catch(error => {
+    console.log(error)
+  })
+})
